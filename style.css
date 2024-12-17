@@ -1,0 +1,147 @@
+* {
+    margin: 0px;
+    padding: 0px;
+  }
+  body {
+    font-size: 120%;
+    background: #F8F8FF;
+  }
+  /*----------------------------------------------------------*/
+
+  .header {
+    width: 90%;
+    max-width: 500px;
+    margin: 50px auto 0px;
+    color: white;
+    background: #5F9EA0;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+    transition: transform 0.5s ease-in-out;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 200%);
+    position: relative;
+  }
+  
+  .header img {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 50px;
+    height: auto;
+  }
+  
+  .header h2 {
+    margin: 0;
+  }
+  
+  .header:hover {
+    transform: scale(1.02);
+  }
+  
+  form, .content {
+    width: 90%;
+    max-width: 500px;
+    margin: 0px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0 3px 10px rgb(214, 214, 214);
+    /* transition: transform 0.8s ease-in-out;*/
+  }
+
+ /*form:hover, .content:hover {
+    transform: scale(1.02);
+  }*/
+
+  @media (min-width: 600px) {
+    .header, form, .content {
+      width: 70%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .header, form, .content {
+      width: 50%;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .header, form, .content {
+      width: 30%;
+    }
+  }
+  /*----------------------------------------------------------*/
+  
+  .input-group {
+    margin: 10px 0px 10px 0px;
+    text-align: center;
+  }
+  .input-group label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+  }
+  .input-group input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  /*----------------------------------------------------------*/
+
+  .btn {
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    background: #5fa068;
+    border: none;
+    border-radius: 5px;
+    max-width: 300px;
+  }
+  .btn-full {
+    width: 100%;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .btn {
+      width: auto;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+  }
+  .btn-logout {
+    background: red;
+    color: white;
+    width: 100%;
+    max-width: 300px;
+  }
+/*----------------------------------------------------------*/
+
+  .error {
+    width: 92%; 
+    margin: 0px auto; 
+    padding: 10px; 
+    border: 1px solid #a94442; 
+    color: #a94442; 
+    background: #f2dede; 
+    border-radius: 5px; 
+    text-align: left;
+  }
+  .success {
+    color: #3c763d; 
+    background: #dff0d8; 
+    border: 1px solid #3c763d;
+    margin-bottom: 20px;
+  }
+
+  p {
+    text-align: center;
+  }
+
