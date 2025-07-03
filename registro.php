@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Registro de usuarios</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="color/style.css">
   <link rel="icon" type="image/svg+xml" href="img/log3.jpg" />
 </head>
 

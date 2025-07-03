@@ -1,23 +1,36 @@
 <?php
 session_start();
 
-// inicializando variables
+// ena aca se inicializando variables
 $nombre = "";
 $email = "";
 $errors = array();
 
-// conectarse a la base de datos
+// en aca se conectarse a la base de datos
 $db = mysqli_connect('localhost', 'root', '', 'login');
 
-// REGISTRAR USUARIO
+if (!$db) {
+    die("Error de conexión: " . mysqli_connect_error());
+}
+
+// Se CREA TABLA SI NO EXISTE
+$tabla = "CREATE TABLE IF NOT EXISTS usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL,
+    img VARCHAR(255),
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+)";
+mysqli_query($db, $tabla);
+
+// Se REGISTRA USUARIO
 if (isset($_POST['reg_usuarios'])) {
-    // recibimos todos los valores de entrada del formulario
     $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
     $email = mysqli_real_escape_string($db, $_POST['email']);
     $contraseña_1 = mysqli_real_escape_string($db, $_POST['contraseña_1']);
     $contraseña_2 = mysqli_real_escape_string($db, $_POST['contraseña_2']);
 
-    // validación del formulario
     if (empty($nombre)) { array_push($errors, "Se requiere nombre de usuario"); }
     if (empty($email)) { array_push($errors, "Correo electrónico es requerido"); }
     if (empty($contraseña_1)) { array_push($errors, "Se requiere contraseña"); }
@@ -25,34 +38,37 @@ if (isset($_POST['reg_usuarios'])) {
         array_push($errors, "Las dos contraseñas no coinciden");
     }
 
-    // revisa la base de datos para asegurarte de que no exista un usuario con el mismo nombre de usuario y/o correo electrónico
     $user_check_query = "SELECT * FROM usuarios WHERE nombre='$nombre' OR email='$email' LIMIT 1";
     $result = mysqli_query($db, $user_check_query);
     $user = mysqli_fetch_assoc($result);
 
-    if ($user) { // si el usuario existe
+    if ($user) {
         if ($user['nombre'] === $nombre) {
             array_push($errors, "Nombre de usuario ya existe");
         }
-
         if ($user['email'] === $email) {
             array_push($errors, "El email ya existe");
         }
     }
 
-    // Finalmente, registramos al usuario si no hay errores en el formulario
+    // en aca se Escoge una imagen aleatoria
     if (count($errors) == 0) {
-        // Almacena la contraseña en texto plano (no recomendado para producción)
-        $query = "INSERT INTO usuarios (nombre, email, contraseña) 
-                  VALUES('$nombre', '$email', '$contraseña_1')";
+        
+        $imagenes_disponibles = ['image/image1.jpg', 'image/image2.jpg', 'image/image3.jpg'];
+        $imagen = $imagenes_disponibles[array_rand($imagenes_disponibles)];
+
+        // y se Guarda la contraseña tal como lo tenías
+        $query = "INSERT INTO usuarios (nombre, email, contraseña, img) 
+                  VALUES('$nombre', '$email', '$contraseña_1', '$imagen')";
         mysqli_query($db, $query);
+
         $_SESSION['nombre'] = $nombre;
         $_SESSION['success'] = "Ahora está conectado";
         header('location: index.php');
     }
 }
 
-// INICIA SESIÓN DE USUARIO
+// Se INICIA SESIÓN DE USUARIO
 if (isset($_POST['login_usuarios'])) {
     $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
     $contraseña = mysqli_real_escape_string($db, $_POST['contraseña']);
